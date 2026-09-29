@@ -1,0 +1,67 @@
+[
+  {
+    "id": "eecaaa6b-6d88-423a-b3e6-f91b9e81fe0c",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "due_at": "2026-09-30T04:30:00.000Z",
+    "action": "Call CEO re: Q3 expansion [1790531576399]",
+    "note": "Discussed at initial discovery; interested in enterprise pricing.",
+    "status": "scheduled",
+    "priority": "high",
+    "completed_at": null,
+    "created_at": "2026-09-27T17:52:57.348Z",
+    "updated_at": "2026-09-27T18:27:09.812Z"
+  },
+  {
+    "id": "18c231fa-aaa4-48aa-9b3a-106d03bcb886",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "due_at": "2026-09-28T04:30:00.000Z",
+    "action": "Call CEO re: Q3 expansion [1790531714362]",
+    "note": "Discussed at initial discovery; interested in enterprise pricing.",
+    "status": "completed",
+    "priority": "high",
+    "completed_at": "2026-09-27T17:55:23.107Z",
+    "created_at": "2026-09-27T17:55:15.086Z",
+    "updated_at": "2026-09-27T17:55:23.107Z"
+  },
+  {
+    "id": "4f122335-7b80-4db0-88c3-62943eda5ab5",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "due_at": "2026-09-28T04:30:00.000Z",
+    "action": "Call CEO re: Q3 expansion [1790531878977]",
+    "note": "Discussed at initial discovery; interested in enterprise pricing.",
+    "status": "completed",
+    "priority": "high",
+    "completed_at": "2026-09-27T17:58:05.319Z",
+    "created_at": "2026-09-27T17:57:59.721Z",
+    "updated_at": "2026-09-27T17:58:05.319Z"
+  },
+  {
+    "id": "4bf6ded8-585e-4f58-b955-bb031b42eeef",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "due_at": "2026-09-28T04:30:00.000Z",
+    "action": "Call CEO re: Q3 expansion [1790533345619]",
+    "note": "Discussed at initial discovery; interested in enterprise pricing.",
+    "status": "completed",
+    "priority": "high",
+    "completed_at": "2026-09-27T18:22:29.606Z",
+    "created_at": "2026-09-27T18:22:26.294Z",
+    "updated_at": "2026-09-27T18:22:29.606Z"
+  },
+  {
+    "id": "20bd9ada-d702-49a7-9623-eaeb0ca72311",
+    "opportunity_id": "9ba07690-f232-4f8e-aaf6-c1d1fb9ca073",
+    "contact_id": "b2c3ddde-71fa-4e02-8b79-60a5b8b14ee6",
+    "due_at": "2026-09-28T04:30:00.000Z",
+    "action": "Call CEO re: Q3 expansion [1790533627435]",
+    "note": "Discussed at initial discovery; interested in enterprise pricing.",
+    "status": "completed",
+    "priority": "high",
+    "completed_at": "2026-09-27T18:27:15.325Z",
+    "created_at": "2026-09-27T18:27:08.190Z",
+    "updated_at": "2026-09-27T18:27:15.325Z"
+  }
+]

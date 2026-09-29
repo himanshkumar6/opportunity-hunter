@@ -1,0 +1,1169 @@
+{
+  "name": "LEAD_HUNT_ON_DEMAND",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-hunt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-800, 200],
+      "id": "371ddd28-4f7c-4902-933a-ba09517548ca",
+      "name": "Webhook"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-800, 40],
+      "id": "61d7fca2-048a-4963-9788-b84e42370697",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Validate and normalize incoming Lead Hunt payload\nconst raw = $input.first()?.json || {};\nconst body = raw.body || raw;\n\nconst niche = String(body.niche || '').trim();\nconst city = String(body.city || '').trim();\n\nif (!niche || !city) {\n  throw new Error('Validation failed: \"niche\" and \"city\" are required parameters.');\n}\n\nconst requestedMax = Number(body.max_results || 20);\nconst maxResults = Math.max(1, Math.min(100, isNaN(requestedMax) ? 20 : requestedMax));\n\nconst noWebsite = Boolean(body.no_website);\nconst seoOpportunity = Boolean(body.seo_opportunity);\nconst socialOpportunity = Boolean(body.social_opportunity);\n\nreturn [\n  {\n    json: {\n      niche,\n      city,\n      max_results: maxResults,\n      no_website: noWebsite,\n      seo_opportunity: seoOpportunity,\n      social_opportunity: socialOpportunity\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-560, 200],
+      "id": "8a669f5b-7df9-4a1c-a8b4-c9c47b5db1ec",
+      "name": "Lead Input Normalization"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "search_runs",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [-320, 200],
+      "id": "ecbc6c4a-f020-4d20-ab72-d30e895054a6",
+      "name": "GET SEARCH RUNS BUDGET",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t9CAF5wq8hH2t7BE",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const MONTHLY_LEAD_LIMIT = 125;\nconst MONTHLY_TOTAL_LIMIT = 250;\n\nconst now = new Date();\nconst currentYear = now.getUTCFullYear();\nconst currentMonth = now.getUTCMonth();\n\nlet leadSearches = 0;\nlet totalSearches = 0;\n\nconst rows = $input.all();\n\nfor (const item of rows) {\n  const row = item.json;\n  if (!row.created_at) continue;\n\n  const createdAt = new Date(row.created_at);\n  if (\n    createdAt.getUTCFullYear() !== currentYear ||\n    createdAt.getUTCMonth() !== currentMonth\n  ) {\n    continue;\n  }\n\n  totalSearches++;\n  if (row.source === 'serpapi_maps' || row.source === 'serpapi_leads') {\n    leadSearches++;\n  }\n}\n\nconst remainingLeadSearches = Math.max(0, MONTHLY_LEAD_LIMIT - leadSearches);\nconst remainingTotalSearches = Math.max(0, MONTHLY_TOTAL_LIMIT - totalSearches);\n\nconst config = $('Lead Input Normalization').first().json;\n\nreturn [\n  {\n    json: {\n      ...config,\n      month: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}`,\n      lead_searches_used: leadSearches,\n      lead_search_limit: MONTHLY_LEAD_LIMIT,\n      lead_searches_remaining: remainingLeadSearches,\n      total_searches_used: totalSearches,\n      total_search_limit: MONTHLY_TOTAL_LIMIT,\n      total_searches_remaining: remainingTotalSearches,\n      lead_search_allowed: remainingLeadSearches > 0 && remainingTotalSearches > 0\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-80, 200],
+      "id": "50706b1a-85d2-438a-aafd-75125ec88629",
+      "name": "LEAD SEARCH BUDGET CHECK"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "581030a5-03b9-4cdd-8f71-f212cdb5b7e4",
+              "leftValue": "={{ $json.lead_search_allowed }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [160, 200],
+      "id": "4165a1ae-39fe-4021-969f-7e87fdb237b7",
+      "name": "If Budget Allowed"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "companies",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [400, 200],
+      "id": "a1111111-1111-4111-a111-111111111111",
+      "name": "GET EXISTING COMPANIES",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t9CAF5wq8hH2t7BE",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const companies = $input.all().map(item => item.json);\nconst priorConfig = $('If Budget Allowed').first().json;\n\nreturn [\n  {\n    json: {\n      ...priorConfig,\n      existing_companies: companies\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 200],
+      "id": "a2222222-2222-4222-a222-222222222222",
+      "name": "Collapse Companies"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "contacts",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [880, 200],
+      "id": "a3333333-3333-4333-a333-333333333333",
+      "name": "GET EXISTING CONTACTS",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t9CAF5wq8hH2t7BE",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const contacts = $input.all().map(item => item.json);\nconst priorState = $('Collapse Companies').first().json;\n\nreturn [\n  {\n    json: {\n      ...priorState,\n      existing_contacts: contacts\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 200],
+      "id": "a4444444-4444-4444-a444-444444444444",
+      "name": "Collapse Contacts"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "opportunities",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [1360, 200],
+      "id": "a5555555-5555-4555-a555-555555555555",
+      "name": "GET EXISTING OPPORTUNITIES",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t9CAF5wq8hH2t7BE",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const opportunities = $input.all().map(item => item.json);\nconst priorState = $('Collapse Contacts').first().json;\n\nreturn [\n  {\n    json: {\n      ...priorState,\n      existing_opportunities: opportunities\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1600, 200],
+      "id": "a6666666-6666-4666-a666-666666666666",
+      "name": "Collapse Opportunities"
+    },
+    {
+      "parameters": {
+        "jsCode": "const cfg = $input.first().json;\n\nconst niche = String(cfg.niche || '').trim();\nconst city = String(cfg.city || '').trim();\n\nconst query = `${niche} businesses`;\n\nreturn [\n  {\n    json: {\n      ...cfg,\n      query,\n      location: city,\n      source: 'serpapi_maps',\n      start: 0\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1840, 200],
+      "id": "76c321e2-631c-42d9-bedf-3dd3e5819306",
+      "name": "LEAD QUERY BUILDER"
+    },
+    {
+      "parameters": {
+        "tableId": "search_runs",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "query",
+              "fieldValue": "={{ $json.query }}"
+            },
+            {
+              "fieldId": "location",
+              "fieldValue": "={{ $json.location }}"
+            },
+            {
+              "fieldId": "source",
+              "fieldValue": "serpapi_maps"
+            },
+            {
+              "fieldId": "status",
+              "fieldValue": "running"
+            },
+            {
+              "fieldId": "results_count",
+              "fieldValue": "0"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [2080, 200],
+      "id": "fe8fa31a-bebc-47fc-b3c9-2d85e5571a7e",
+      "name": "CREATE SEARCH RUN",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t9CAF5wq8hH2t7BE",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const searchRun = $input.first().json;\nconst queryBuilder = $('LEAD QUERY BUILDER').first().json;\n\nreturn [\n  {\n    json: {\n      search_run_id: searchRun.id,\n      query: queryBuilder.query,\n      location: queryBuilder.location,\n      start: 0\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2320, 200],
+      "id": "a7777777-7777-4777-a777-777777777777",
+      "name": "PREPARE SERP SEARCH"
+    },
+    {
+      "parameters": {
+        "url": "https://serpapi.com/search.json",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "serpApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "engine",
+              "value": "google_maps"
+            },
+            {
+              "name": "type",
+              "value": "search"
+            },
+            {
+              "name": "q",
+              "value": "={{ $json.query }} in {{ $json.location }}"
+            },
+            {
+              "name": "start",
+              "value": "={{ $json.start }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [2560, 200],
+      "id": "efcad3c5-fe89-4806-9a4a-4cf95fdb37df",
+      "name": "SerpApi Google Maps",
+      "credentials": {
+        "serpApi": {
+          "id": "nJZyjmjdjaIYNRTn",
+          "name": "SerpAPI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const resp = $input.first()?.json || {};\nconst serpSearch = $('PREPARE SERP SEARCH').first().json;\nconst searchRunId = serpSearch.search_run_id;\n\nconst results = Array.isArray(resp.local_results) ? resp.local_results : [];\n\nif (results.length === 0) {\n  return [\n    {\n      json: {\n        has_results: false,\n        search_run_id: searchRunId,\n        raw_count: 0\n      }\n    }\n  ];\n}\n\n// Deduplicate within this search execution by place_id or website or title+address\nconst seen = new Set();\nconst uniqueRaw = [];\n\nresults.forEach((business, index) => {\n  const placeId = business.place_id || null;\n  const dataId = business.data_id || null;\n  const title = business.title || null;\n  const address = business.address || '';\n\n  // Clean actual business website (never use SerpApi internal endpoints or keys)\n  let website = business.website || business.link || null;\n  if (website && (website.includes('serpapi.com') || website.includes('api_key'))) {\n    website = null;\n  }\n\n  // Build genuine Google Maps URL\n  let googleMapsUrl = null;\n  if (placeId) {\n    googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${encodeURIComponent(placeId)}`;\n  } else if (dataId) {\n    googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${encodeURIComponent(dataId)}`;\n  } else if (title) {\n    const q = [title, address].filter(Boolean).join(' ');\n    googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;\n  }\n\n  const dedupKey = placeId || website || `${title}|${address}`;\n  if (seen.has(dedupKey)) {\n    return;\n  }\n  seen.add(dedupKey);\n\n  // Strip place_id_search from raw_data so SerpApi request URLs are never stored\n  const sanitizedRawData = { ...business };\n  delete sanitizedRawData.place_id_search;\n  sanitizedRawData.google_maps_url = googleMapsUrl;\n\n  uniqueRaw.push({\n    json: {\n      has_results: true,\n      search_run_id: searchRunId,\n      title,\n      url: website,\n      google_maps_url: googleMapsUrl,\n      snippet: business.description || business.address || business.type || null,\n      position: business.position || index + 1,\n      raw_data: sanitizedRawData\n    }\n  });\n});\n\nreturn uniqueRaw;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2800, 200],
+      "id": "7df3b1ad-1b7d-4227-8c1d-5cd2f45de55a",
+      "name": "EXTRACT & DEDUPLICATE RAW RESULTS"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b1111111-1111-4111-b111-111111111111",
+              "leftValue": "={{ $json.has_results }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [3040, 200],
+      "id": "b2222222-2222-4222-b222-222222222222",
+      "name": "If Any Raw Results"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "search_runs",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $json.search_run_id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "completed"
+            },
+            {
+              "fieldId": "results_count",
+              "fieldValue": "0"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [3280, 400],
+      "id": "b3333333-3333-4333-b333-333333333333",
+      "name": "UPDATE SEARCH RUN ZERO RESULTS",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t9CAF5wq8hH2t7BE",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "raw_search_results",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "search_run_id",
+              "fieldValue": "={{ $json.search_run_id }}"
+            },
+            {
+              "fieldId": "title",
+              "fieldValue": "={{ $json.title }}"
+            },
+            {
+              "fieldId": "url",
+              "fieldValue": "={{ $json.url }}"
+            },
+            {
+              "fieldId": "snippet",
+              "fieldValue": "={{ $json.snippet }}"
+            },
+            {
+              "fieldId": "position",
+              "fieldValue": "={{ $json.position }}"
+            },
+            {
+              "fieldId": "raw_data",
+              "fieldValue": "={{ $json.raw_data }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [3280, 200],
+      "id": "ffc1af89-04ce-419a-81c0-40e6adbf9696",
+      "name": "SAVE RAW LEAD RESULTS",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t9CAF5wq8hH2t7BE",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Intelligence, Evaluation, Qualification, and Deterministic Deduplication Engine\nconst rawSavedItems = $input.all();\nconst appContext = $('Collapse Opportunities').first().json;\n\nconst existingCompanies = appContext.existing_companies || [];\nconst existingContacts = appContext.existing_contacts || [];\nconst existingOpportunities = appContext.existing_opportunities || [];\n\nconst maxResults = appContext.max_results || 20;\nconst filterNoWebsite = Boolean(appContext.no_website);\nconst filterSeoOpp = Boolean(appContext.seo_opportunity);\nconst filterSocialOpp = Boolean(appContext.social_opportunity);\n\nconst searchRunId = $('PREPARE SERP SEARCH').first().json.search_run_id;\n\nfunction generateUUID() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    const r = (Math.random() * 16) | 0;\n    const v = c === 'x' ? r : (r & 0x3) | 0x8;\n    return v.toString(16);\n  });\n}\n\nconst GENERIC_DOMAINS = new Set([\n  'sites.google.com',\n  'google.com',\n  'facebook.com',\n  'instagram.com',\n  'linkedin.com',\n  'twitter.com',\n  'x.com',\n  'youtube.com',\n  'whatsapp.com',\n  'wa.me',\n  'bit.ly',\n  'linktr.ee'\n]);\n\nfunction normalizeDomain(url) {\n  if (!url || typeof url !== 'string') return '';\n  try {\n    let u = url.trim();\n    if (!u.startsWith('http://') && !u.startsWith('https://')) u = 'https://' + u;\n    const parsed = new URL(u);\n    let hostname = parsed.hostname.toLowerCase();\n    if (hostname.startsWith('www.')) hostname = hostname.slice(4);\n    return hostname;\n  } catch (e) {\n    return url.toLowerCase().replace(/^https?:\\/\\//, '').replace(/^www\\./, '').split('/')[0].trim();\n  }\n}\n\nfunction normalizeName(name) {\n  if (!name || typeof name !== 'string') return '';\n  return name\n    .toLowerCase()\n    .replace(/\\bpvt\\b/g, '')\n    .replace(/\\bltd\\b/g, '')\n    .replace(/\\bprivate\\b/g, '')\n    .replace(/\\blimited\\b/g, '')\n    .replace(/\\bllp\\b/g, '')\n    .replace(/\\binc\\b/g, '')\n    .replace(/\\bcorp\\b/g, '')\n    .replace(/[^a-z0-9]/g, '')\n    .trim();\n}\n\nfunction normalizePhone(phone) {\n  if (!phone || typeof phone !== 'string') return '';\n  const digits = phone.replace(/\\D/g, '');\n  return digits.length >= 10 ? digits.slice(-10) : digits;\n}\n\nfunction getEntityKey(name, website) {\n  const domain = normalizeDomain(website);\n  const normName = normalizeName(name);\n  if (domain && !GENERIC_DOMAINS.has(domain)) {\n    return 'domain:' + domain;\n  }\n  return 'name:' + normName;\n}\n\n// Build index of existing companies\nconst companyLookup = new Map();\nfor (const c of existingCompanies) {\n  const key = getEntityKey(c.name, c.website);\n  if (!companyLookup.has(key)) {\n    companyLookup.set(key, c);\n  }\n}\n\n// Build index of existing contacts (company_id + normalized phone)\nconst contactLookup = new Set();\nfor (const c of existingContacts) {\n  if (c.company_id && c.phone) {\n    const p = normalizePhone(c.phone);\n    if (p) contactLookup.add(`${c.company_id}|${p}`);\n  }\n}\n\n// Build index of existing business_lead opportunities (company_id + type='business_lead')\nconst opportunityLookup = new Set();\nfor (const o of existingOpportunities) {\n  if (o.company_id && (o.type === 'business_lead' || o.type === 'website_opportunity')) {\n    opportunityLookup.add(o.company_id);\n  }\n}\n\nconst qualifiedLeads = [];\nconst seenInCurrentRun = new Set();\n\nfor (const item of rawSavedItems) {\n  if (qualifiedLeads.length >= maxResults) break;\n\n  const raw = item.json.raw_data || {};\n  const name = String(raw.title || item.json.title || '').trim();\n  if (!name) continue;\n\n  let website = raw.website || item.json.url || null;\n  if (website && (website.includes('serpapi.com') || website.includes('api_key') || website.includes('google.com/maps'))) {\n    website = null;\n  }\n  const address = raw.address || null;\n  const phone = raw.phone || null;\n  const industry = raw.type || (Array.isArray(raw.types) ? raw.types[0] : null) || null;\n  const location = address || null;\n  let sourceUrl = raw.google_maps_url || item.json.google_maps_url || null;\n  if (!sourceUrl || sourceUrl.includes('serpapi.com')) {\n    const pId = raw.place_id || raw.data_id || null;\n    if (pId) {\n      sourceUrl = `https://www.google.com/maps/place/?q=place_id:${encodeURIComponent(pId)}`;\n    } else if (name) {\n      const q = [name, location].filter(Boolean).join(' ');\n      sourceUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;\n    } else {\n      sourceUrl = null;\n    }\n  }\n\n  // 1. Deduplicate in current search execution\n  const entityKey = getEntityKey(name, website);\n  if (seenInCurrentRun.has(entityKey)) {\n    continue;\n  }\n  seenInCurrentRun.add(entityKey);\n\n  // 2. Website qualification\n  const trimmedWeb = String(website || '').trim();\n  let websiteStatus = 'not_found';\n  let websiteOpp = false;\n  if (trimmedWeb) {\n    if (trimmedWeb.startsWith('http://') || trimmedWeb.startsWith('https://')) {\n      websiteStatus = 'found';\n    } else {\n      websiteStatus = 'unknown';\n    }\n  }\n  if (websiteStatus === 'not_found') {\n    websiteOpp = true;\n  }\n\n  // 3. SEO qualification\n  const rating = Number(raw.rating || 0);\n  const reviews = Number(raw.reviews || 0);\n  let seoOpp = false;\n  const seoReasons = [];\n  if (websiteStatus === 'not_found') {\n    seoOpp = true;\n    seoReasons.push('No website found');\n  }\n  if (websiteStatus === 'found') {\n    seoReasons.push('Website found - SEO audit pending');\n  }\n  if (rating >= 4 && reviews >= 20) {\n    seoReasons.push('Established Google Maps presence');\n  }\n\n  // 4. Social qualification\n  const possibleLinks = [\n    raw.facebook, raw.instagram, raw.linkedin, raw.youtube, raw.twitter, raw.x, raw.social_links\n  ];\n  const socialLinks = [];\n  for (const v of possibleLinks) {\n    if (Array.isArray(v)) socialLinks.push(...v.filter(Boolean));\n    else if (v) socialLinks.push(v);\n  }\n  const uniqueSocial = [...new Set(socialLinks)];\n  let socialStatus = uniqueSocial.length > 0 ? 'found' : 'not_found';\n  let socialOpp = uniqueSocial.length === 0;\n  let socialReason = socialOpp ? 'No social profile found in business data' : 'Social profile found';\n\n  // 5. Lead scoring\n  let score = 0;\n  const reasons = [];\n  if (websiteStatus === 'not_found') { score += 30; reasons.push('No website found'); }\n  if (seoOpp) { score += 25; reasons.push('SEO opportunity detected'); }\n  if (socialOpp) { score += 20; reasons.push('Social media opportunity detected'); }\n  if (phone) { score += 10; reasons.push('Phone number available'); }\n  if (rating >= 4.5) { score += 10; reasons.push(`Strong Google rating (${rating})`); }\n  if (reviews >= 100) { score += 5; reasons.push(`Strong review volume (${reviews})`); }\n\n  let priority = 'low';\n  if (score >= 70) priority = 'high';\n  else if (score >= 40) priority = 'medium';\n\n  // 6. Respect incoming filters\n  if (filterNoWebsite && websiteStatus !== 'not_found') {\n    continue;\n  }\n  if (filterSeoOpp && !seoOpp) {\n    continue;\n  }\n  if (filterSocialOpp && !socialOpp) {\n    continue;\n  }\n\n  // 7. Check if company already exists\n  let companyId;\n  let isNewCompany = false;\n  if (companyLookup.has(entityKey)) {\n    const existing = companyLookup.get(entityKey);\n    companyId = existing.id;\n  } else {\n    companyId = generateUUID();\n    isNewCompany = true;\n    companyLookup.set(entityKey, { id: companyId, name, website });\n  }\n\n  // 8. Check contact deduplication\n  let isNewContact = false;\n  let contactId = null;\n  const normP = normalizePhone(phone);\n  if (normP) {\n    const contactKey = `${companyId}|${normP}`;\n    if (!contactLookup.has(contactKey)) {\n      isNewContact = true;\n      contactId = generateUUID();\n      contactLookup.add(contactKey);\n    }\n  }\n\n  // 9. Check opportunity deduplication\n  let isNewOpportunity = false;\n  let opportunityId = null;\n  if (!opportunityLookup.has(companyId)) {\n    isNewOpportunity = true;\n    opportunityId = generateUUID();\n    opportunityLookup.add(companyId);\n  }\n\n  qualifiedLeads.push({\n    json: {\n      search_run_id: searchRunId,\n      company_id: companyId,\n      contact_id: contactId,\n      opportunity_id: opportunityId,\n      is_new_company: isNewCompany,\n      is_new_contact: isNewContact,\n      is_new_opportunity: isNewOpportunity,\n\n      company_name: name,\n      website,\n      phone,\n      address,\n      location,\n      industry,\n      source_url: sourceUrl,\n      raw_data: raw,\n\n      website_status: websiteStatus,\n      website_opportunity: websiteOpp,\n\n      google_rating: rating || null,\n      google_reviews: reviews || 0,\n      seo_opportunity: seoOpp,\n      seo_reason: seoReasons.join('; '),\n\n      social_status: socialStatus,\n      social_opportunity: socialOpp,\n      social_links: uniqueSocial,\n      social_reason: socialReason,\n\n      lead_score: score,\n      lead_priority: priority,\n      score_reasons: reasons.join('; '),\n\n      // Contact payload fields\n      contact_name: null,\n      contact_role: null,\n      contact_email: null,\n      contact_phone: phone,\n      contact_whatsapp: null,\n      contact_confidence: phone ? 0.8 : null,\n\n      // Opportunity payload fields\n      opp_title: `${priority.toUpperCase()} Lead Opportunity`,\n      opp_type: 'business_lead',\n      opp_match_score: score\n    }\n  });\n}\n\nreturn qualifiedLeads;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3520, 200],
+      "id": "2df9a2eb-11d7-46a6-8a80-53e7d2bf4a0f",
+      "name": "DEDUPLICATE & EVALUATE LEADS"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst newCompanies = items.filter(i => i.json.is_new_company).map(i => i.json);\n\nreturn [\n  {\n    json: {\n      has_new_companies: newCompanies.length > 0,\n      count: newCompanies.length,\n      companies: newCompanies\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3760, 200],
+      "id": "c1111111-1111-4111-c111-111111111111",
+      "name": "PREPARE NEW COMPANIES"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c2222222-2222-4222-c222-222222222222",
+              "leftValue": "={{ $json.has_new_companies }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [4000, 200],
+      "id": "c3333333-3333-4333-c333-333333333333",
+      "name": "If Has New Companies"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first()?.json?.companies || [];\nreturn data.map(c => ({ json: c }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [4240, 100],
+      "id": "c4444444-4444-4444-c444-444444444444",
+      "name": "UNPACK NEW COMPANIES"
+    },
+    {
+      "parameters": {
+        "tableId": "companies",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "id",
+              "fieldValue": "={{ $json.company_id }}"
+            },
+            {
+              "fieldId": "name",
+              "fieldValue": "={{ $json.company_name }}"
+            },
+            {
+              "fieldId": "website",
+              "fieldValue": "={{ $json.website }}"
+            },
+            {
+              "fieldId": "location",
+              "fieldValue": "={{ $json.location }}"
+            },
+            {
+              "fieldId": "industry",
+              "fieldValue": "={{ $json.industry }}"
+            },
+            {
+              "fieldId": "source_url",
+              "fieldValue": "={{ $json.source_url }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [4480, 100],
+      "id": "a3d6bebc-ea30-42e5-901f-7d8f34cce5dd",
+      "name": "CREATE COMPANY",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t9CAF5wq8hH2t7BE",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const allLeads = $('DEDUPLICATE & EVALUATE LEADS').all();\nconst newContacts = allLeads.filter(i => i.json.is_new_contact).map(i => i.json);\n\nreturn [\n  {\n    json: {\n      has_new_contacts: newContacts.length > 0,\n      count: newContacts.length,\n      contacts: newContacts\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [4720, 200],
+      "id": "d1111111-1111-4111-d111-111111111111",
+      "name": "PREPARE NEW CONTACTS"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d2222222-2222-4222-d222-222222222222",
+              "leftValue": "={{ $json.has_new_contacts }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [4960, 200],
+      "id": "d3333333-3333-4333-d333-333333333333",
+      "name": "If Has New Contacts"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first()?.json?.contacts || [];\nreturn data.map(c => ({ json: c }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [5200, 100],
+      "id": "d4444444-4444-4444-d444-444444444444",
+      "name": "UNPACK NEW CONTACTS"
+    },
+    {
+      "parameters": {
+        "tableId": "contacts",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "id",
+              "fieldValue": "={{ $json.contact_id }}"
+            },
+            {
+              "fieldId": "company_id",
+              "fieldValue": "={{ $json.company_id }}"
+            },
+            {
+              "fieldId": "name",
+              "fieldValue": "={{ $json.contact_name }}"
+            },
+            {
+              "fieldId": "role",
+              "fieldValue": "={{ $json.contact_role }}"
+            },
+            {
+              "fieldId": "email",
+              "fieldValue": "={{ $json.contact_email }}"
+            },
+            {
+              "fieldId": "phone",
+              "fieldValue": "={{ $json.contact_phone }}"
+            },
+            {
+              "fieldId": "whatsapp",
+              "fieldValue": "={{ $json.contact_whatsapp }}"
+            },
+            {
+              "fieldId": "source_url",
+              "fieldValue": "={{ $json.source_url }}"
+            },
+            {
+              "fieldId": "confidence",
+              "fieldValue": "={{ $json.contact_confidence }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [5440, 100],
+      "id": "c23b176e-07e6-4fd3-8833-1abd3272dacd",
+      "name": "CREATE CONTACT",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t9CAF5wq8hH2t7BE",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const allLeads = $('DEDUPLICATE & EVALUATE LEADS').all();\nconst newOpps = allLeads.filter(i => i.json.is_new_opportunity).map(i => i.json);\n\nreturn [\n  {\n    json: {\n      has_new_opportunities: newOpps.length > 0,\n      count: newOpps.length,\n      opportunities: newOpps\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [5680, 200],
+      "id": "e1111111-1111-4111-e111-111111111111",
+      "name": "PREPARE NEW OPPORTUNITIES"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e2222222-2222-4222-e222-222222222222",
+              "leftValue": "={{ $json.has_new_opportunities }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [5920, 200],
+      "id": "e3333333-3333-4333-e333-333333333333",
+      "name": "If Has New Opportunities"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first()?.json?.opportunities || [];\nreturn data.map(o => ({ json: o }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [6160, 100],
+      "id": "e4444444-4444-4444-e444-444444444444",
+      "name": "UNPACK NEW OPPORTUNITIES"
+    },
+    {
+      "parameters": {
+        "tableId": "opportunities",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "id",
+              "fieldValue": "={{ $json.opportunity_id }}"
+            },
+            {
+              "fieldId": "company_id",
+              "fieldValue": "={{ $json.company_id }}"
+            },
+            {
+              "fieldId": "title",
+              "fieldValue": "={{ $json.opp_title }}"
+            },
+            {
+              "fieldId": "type",
+              "fieldValue": "business_lead"
+            },
+            {
+              "fieldId": "location",
+              "fieldValue": "={{ $json.location }}"
+            },
+            {
+              "fieldId": "description",
+              "fieldValue": "={{ $json.score_reasons }}"
+            },
+            {
+              "fieldId": "source",
+              "fieldValue": "google_maps"
+            },
+            {
+              "fieldId": "source_url",
+              "fieldValue": "={{ $json.source_url }}"
+            },
+            {
+              "fieldId": "match_score",
+              "fieldValue": "={{ $json.opp_match_score }}"
+            },
+            {
+              "fieldId": "status",
+              "fieldValue": "new"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [6400, 100],
+      "id": "ea84024c-2b55-426a-b821-0c22d365bee4",
+      "name": "CREATE OPPORTUNITY",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t9CAF5wq8hH2t7BE",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const searchRunId = $('PREPARE SERP SEARCH').first().json.search_run_id;\nconst allLeads = $('DEDUPLICATE & EVALUATE LEADS').all();\nconst uniqueCount = allLeads.length;\n\nreturn [\n  {\n    json: {\n      search_run_id: searchRunId,\n      status: 'completed',\n      results_count: uniqueCount\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [6640, 200],
+      "id": "f1111111-1111-4111-f111-111111111111",
+      "name": "PREPARE SEARCH RUN UPDATE"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "search_runs",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $json.search_run_id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "status",
+              "fieldValue": "completed"
+            },
+            {
+              "fieldId": "results_count",
+              "fieldValue": "={{ $json.results_count }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [6880, 200],
+      "id": "f2222222-2222-4222-f222-222222222222",
+      "name": "UPDATE SEARCH RUN",
+      "credentials": {
+        "supabaseApi": {
+          "id": "t9CAF5wq8hH2t7BE",
+          "name": "Supabase account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Lead Input Normalization",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Lead Input Normalization",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead Input Normalization": {
+      "main": [
+        [
+          {
+            "node": "GET SEARCH RUNS BUDGET",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET SEARCH RUNS BUDGET": {
+      "main": [
+        [
+          {
+            "node": "LEAD SEARCH BUDGET CHECK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LEAD SEARCH BUDGET CHECK": {
+      "main": [
+        [
+          {
+            "node": "If Budget Allowed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Budget Allowed": {
+      "main": [
+        [
+          {
+            "node": "GET EXISTING COMPANIES",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET EXISTING COMPANIES": {
+      "main": [
+        [
+          {
+            "node": "Collapse Companies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collapse Companies": {
+      "main": [
+        [
+          {
+            "node": "GET EXISTING CONTACTS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET EXISTING CONTACTS": {
+      "main": [
+        [
+          {
+            "node": "Collapse Contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collapse Contacts": {
+      "main": [
+        [
+          {
+            "node": "GET EXISTING OPPORTUNITIES",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET EXISTING OPPORTUNITIES": {
+      "main": [
+        [
+          {
+            "node": "Collapse Opportunities",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collapse Opportunities": {
+      "main": [
+        [
+          {
+            "node": "LEAD QUERY BUILDER",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LEAD QUERY BUILDER": {
+      "main": [
+        [
+          {
+            "node": "CREATE SEARCH RUN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CREATE SEARCH RUN": {
+      "main": [
+        [
+          {
+            "node": "PREPARE SERP SEARCH",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PREPARE SERP SEARCH": {
+      "main": [
+        [
+          {
+            "node": "SerpApi Google Maps",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpApi Google Maps": {
+      "main": [
+        [
+          {
+            "node": "EXTRACT & DEDUPLICATE RAW RESULTS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "EXTRACT & DEDUPLICATE RAW RESULTS": {
+      "main": [
+        [
+          {
+            "node": "If Any Raw Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Any Raw Results": {
+      "main": [
+        [
+          {
+            "node": "SAVE RAW LEAD RESULTS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "UPDATE SEARCH RUN ZERO RESULTS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SAVE RAW LEAD RESULTS": {
+      "main": [
+        [
+          {
+            "node": "DEDUPLICATE & EVALUATE LEADS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DEDUPLICATE & EVALUATE LEADS": {
+      "main": [
+        [
+          {
+            "node": "PREPARE NEW COMPANIES",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PREPARE NEW COMPANIES": {
+      "main": [
+        [
+          {
+            "node": "If Has New Companies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Has New Companies": {
+      "main": [
+        [
+          {
+            "node": "UNPACK NEW COMPANIES",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "PREPARE NEW CONTACTS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UNPACK NEW COMPANIES": {
+      "main": [
+        [
+          {
+            "node": "CREATE COMPANY",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CREATE COMPANY": {
+      "main": [
+        [
+          {
+            "node": "PREPARE NEW CONTACTS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PREPARE NEW CONTACTS": {
+      "main": [
+        [
+          {
+            "node": "If Has New Contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Has New Contacts": {
+      "main": [
+        [
+          {
+            "node": "UNPACK NEW CONTACTS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "PREPARE NEW OPPORTUNITIES",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UNPACK NEW CONTACTS": {
+      "main": [
+        [
+          {
+            "node": "CREATE CONTACT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CREATE CONTACT": {
+      "main": [
+        [
+          {
+            "node": "PREPARE NEW OPPORTUNITIES",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PREPARE NEW OPPORTUNITIES": {
+      "main": [
+        [
+          {
+            "node": "If Has New Opportunities",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Has New Opportunities": {
+      "main": [
+        [
+          {
+            "node": "UNPACK NEW OPPORTUNITIES",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "PREPARE SEARCH RUN UPDATE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UNPACK NEW OPPORTUNITIES": {
+      "main": [
+        [
+          {
+            "node": "CREATE OPPORTUNITY",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CREATE OPPORTUNITY": {
+      "main": [
+        [
+          {
+            "node": "PREPARE SEARCH RUN UPDATE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PREPARE SEARCH RUN UPDATE": {
+      "main": [
+        [
+          {
+            "node": "UPDATE SEARCH RUN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

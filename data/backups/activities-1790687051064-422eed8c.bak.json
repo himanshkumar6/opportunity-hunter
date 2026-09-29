@@ -1,0 +1,919 @@
+[
+  {
+    "id": "a8796fa7-df92-487a-95bb-2fce8fe874d5",
+    "opportunity_id": "dcf59c48-9f8d-4d5c-85f0-d817f97dd8ef",
+    "contact_id": "7b48e820-583e-40db-8dae-8e76df90e4f8",
+    "company_id": "58c8c01d-84a8-43bb-bd9b-f03adab77b91",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up B [1790687049946]",
+    "description": "Scheduled for 1/10/2026 (HIGH priority).",
+    "metadata": {
+      "follow_up_id": "87c19b99-f0ba-4f46-88da-91b8c1db3550",
+      "due_at": "2026-10-01T13:04:09.947Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-29T13:04:10.427Z"
+  },
+  {
+    "id": "d072cf7b-9ef4-484e-856d-1552a505f59c",
+    "opportunity_id": "ddf2697c-ec38-40bc-a4d3-9eca37e8b870",
+    "contact_id": "08b63324-a104-4594-a58e-f76bf0bcdbda",
+    "company_id": "4749ca1a-db52-4080-bca0-86b04caec3b0",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up A [1790687049946]",
+    "description": "Scheduled for 30/9/2026 (MEDIUM priority).",
+    "metadata": {
+      "follow_up_id": "fe2b63d1-ed82-4921-8bb6-65a2ce1e4e49",
+      "due_at": "2026-09-30T13:04:09.946Z",
+      "priority": "medium"
+    },
+    "created_at": "2026-09-29T13:04:10.384Z"
+  },
+  {
+    "id": "90b2ee16-7649-402b-9a75-9eee26212c20",
+    "opportunity_id": "ddf2697c-ec38-40bc-a4d3-9eca37e8b870",
+    "contact_id": null,
+    "company_id": "4749ca1a-db52-4080-bca0-86b04caec3b0",
+    "type": "status_changed",
+    "title": "Status Changed: QUALIFIED",
+    "description": "Opportunity pipeline state updated from new to qualified.",
+    "metadata": {
+      "from_status": "new",
+      "to_status": "qualified"
+    },
+    "created_at": "2026-09-29T13:04:10.058Z"
+  },
+  {
+    "id": "59e5df23-2c68-4cc6-91a7-91bd2c8a4ec3",
+    "opportunity_id": "dcf59c48-9f8d-4d5c-85f0-d817f97dd8ef",
+    "contact_id": "7b48e820-583e-40db-8dae-8e76df90e4f8",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Call CEO re: Q3 expansion [1790687027756]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "3e1994a0-9d47-4623-a809-4a2a53bc236e",
+      "completed_at": "2026-09-29T13:03:50.483Z"
+    },
+    "created_at": "2026-09-29T13:03:50.490Z"
+  },
+  {
+    "id": "a8797ae9-2d9f-4630-9d53-bddc3dc19a9b",
+    "opportunity_id": "dcf59c48-9f8d-4d5c-85f0-d817f97dd8ef",
+    "contact_id": "7b48e820-583e-40db-8dae-8e76df90e4f8",
+    "company_id": "58c8c01d-84a8-43bb-bd9b-f03adab77b91",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Call CEO re: Q3 expansion [1790687027756]",
+    "description": "Scheduled for 30/9/2026 (HIGH priority). Note: Discussed at initial discovery; interested in enterprise pricing.",
+    "metadata": {
+      "follow_up_id": "3e1994a0-9d47-4623-a809-4a2a53bc236e",
+      "due_at": "2026-09-30T04:30:00.000Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-29T13:03:48.314Z"
+  },
+  {
+    "id": "43561dbe-1a54-477d-b32f-99aac466b71f",
+    "opportunity_id": "ddf2697c-ec38-40bc-a4d3-9eca37e8b870",
+    "contact_id": "08b63324-a104-4594-a58e-f76bf0bcdbda",
+    "company_id": null,
+    "type": "follow_up_rescheduled",
+    "title": "Follow-up Rescheduled: Concurrent Follow-up A [1790686384220]",
+    "description": "Rescheduled to 2/10/2026.",
+    "metadata": {
+      "follow_up_id": "5c8bed28-3380-4254-bbdd-6cde21c91fab",
+      "due_at": "2026-10-02T04:30:00.000Z"
+    },
+    "created_at": "2026-09-29T13:03:48.016Z"
+  },
+  {
+    "id": "c40d1df8-05b3-4613-9e3e-c321ac32c2ac",
+    "opportunity_id": "31c55ce1-f334-4e99-ad8a-a02db87239f0",
+    "contact_id": null,
+    "company_id": "9a1aefb0-adc8-4b54-9d4d-2b82ba58bf98",
+    "type": "status_changed",
+    "title": "Status Changed: QUALIFIED",
+    "description": "Opportunity pipeline state updated from new to qualified.",
+    "metadata": {
+      "from_status": "new",
+      "to_status": "qualified"
+    },
+    "created_at": "2026-09-29T13:03:16.829Z"
+  },
+  {
+    "id": "1d00fb8e-fa53-453d-98ea-9aeef83df8b4",
+    "opportunity_id": "f31f4ac2-1f60-465c-89ff-875161965d78",
+    "contact_id": "41850e41-57f6-4e5b-99ed-7e4131f77692",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Concurrent Follow-up B [1790684392149]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "53a067ac-1a6a-470d-89bc-90bb0e36cb6e",
+      "completed_at": "2026-09-29T12:53:04.797Z"
+    },
+    "created_at": "2026-09-29T12:53:04.801Z"
+  },
+  {
+    "id": "72c97e60-998e-4187-b23c-0772ede36d70",
+    "opportunity_id": "dcf59c48-9f8d-4d5c-85f0-d817f97dd8ef",
+    "contact_id": "7b48e820-583e-40db-8dae-8e76df90e4f8",
+    "company_id": "58c8c01d-84a8-43bb-bd9b-f03adab77b91",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up B [1790686384220]",
+    "description": "Scheduled for 1/10/2026 (HIGH priority).",
+    "metadata": {
+      "follow_up_id": "47c7e9c9-2da7-41a4-b715-2953d896a885",
+      "due_at": "2026-10-01T12:53:04.221Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-29T12:53:04.676Z"
+  },
+  {
+    "id": "a4ecb6b3-96f4-488b-8df2-c12576c453b1",
+    "opportunity_id": "ddf2697c-ec38-40bc-a4d3-9eca37e8b870",
+    "contact_id": "08b63324-a104-4594-a58e-f76bf0bcdbda",
+    "company_id": "4749ca1a-db52-4080-bca0-86b04caec3b0",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up A [1790686384220]",
+    "description": "Scheduled for 30/9/2026 (MEDIUM priority).",
+    "metadata": {
+      "follow_up_id": "5c8bed28-3380-4254-bbdd-6cde21c91fab",
+      "due_at": "2026-09-30T12:53:04.220Z",
+      "priority": "medium"
+    },
+    "created_at": "2026-09-29T12:53:04.652Z"
+  },
+  {
+    "id": "022414f4-dae0-4fa1-9dd3-54c5fb067d37",
+    "opportunity_id": "b4851186-cb42-4e1b-9acc-087f9e2c2115",
+    "contact_id": null,
+    "company_id": "c53eadd3-7b28-49ad-8815-396811bee755",
+    "type": "status_changed",
+    "title": "Status Changed: QUALIFIED",
+    "description": "Opportunity pipeline state updated from new to qualified.",
+    "metadata": {
+      "from_status": "new",
+      "to_status": "qualified"
+    },
+    "created_at": "2026-09-29T12:53:03.839Z"
+  },
+  {
+    "id": "34f0885e-8899-4482-8e14-777dfcab3006",
+    "opportunity_id": "ddf2697c-ec38-40bc-a4d3-9eca37e8b870",
+    "contact_id": "08b63324-a104-4594-a58e-f76bf0bcdbda",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Call CEO re: Q3 expansion [1790686350845]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "88ced724-de8e-475b-b936-fcc54070de6c",
+      "completed_at": "2026-09-29T12:52:34.152Z"
+    },
+    "created_at": "2026-09-29T12:52:34.157Z"
+  },
+  {
+    "id": "5dd15342-12f2-4c26-a246-12f935ff6450",
+    "opportunity_id": "2bdd4920-0f07-44ae-be13-0c56c218a695",
+    "contact_id": "bb6c249b-caf4-4b0d-a8ec-7a322e1a79d2",
+    "company_id": null,
+    "type": "follow_up_rescheduled",
+    "title": "Follow-up Rescheduled: Concurrent Follow-up B [1790683809733]",
+    "description": "Rescheduled to 2/10/2026.",
+    "metadata": {
+      "follow_up_id": "18adc79a-7053-4c6b-b113-eb8868cd0a85",
+      "due_at": "2026-10-02T04:30:00.000Z"
+    },
+    "created_at": "2026-09-29T12:52:31.700Z"
+  },
+  {
+    "id": "988f5d45-e63c-4430-b370-66b3cf1fda5b",
+    "opportunity_id": "ddf2697c-ec38-40bc-a4d3-9eca37e8b870",
+    "contact_id": "08b63324-a104-4594-a58e-f76bf0bcdbda",
+    "company_id": "4749ca1a-db52-4080-bca0-86b04caec3b0",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Call CEO re: Q3 expansion [1790686350845]",
+    "description": "Scheduled for 30/9/2026 (HIGH priority). Note: Discussed at initial discovery; interested in enterprise pricing.",
+    "metadata": {
+      "follow_up_id": "88ced724-de8e-475b-b936-fcc54070de6c",
+      "due_at": "2026-09-30T04:30:00.000Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-29T12:52:31.424Z"
+  },
+  {
+    "id": "f5a15e9a-b369-47bf-9d12-68fc832706fd",
+    "opportunity_id": "f31f4ac2-1f60-465c-89ff-875161965d78",
+    "contact_id": "41850e41-57f6-4e5b-99ed-7e4131f77692",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Concurrent Follow-up A [1790684590977]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "c3798e74-43ee-4ddf-9d74-ac057e884262",
+      "completed_at": "2026-09-29T12:23:12.711Z"
+    },
+    "created_at": "2026-09-29T12:23:12.716Z"
+  },
+  {
+    "id": "b1dad77c-d581-4ee8-aedf-ef21efdc720b",
+    "opportunity_id": "f31f4ac2-1f60-465c-89ff-875161965d78",
+    "contact_id": "41850e41-57f6-4e5b-99ed-7e4131f77692",
+    "company_id": "2ebe030a-8255-4215-8a23-8170c22925ef",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up A [1790684590977]",
+    "description": "Scheduled for 30/9/2026 (MEDIUM priority).",
+    "metadata": {
+      "follow_up_id": "c3798e74-43ee-4ddf-9d74-ac057e884262",
+      "due_at": "2026-09-30T12:23:10.978Z",
+      "priority": "medium"
+    },
+    "created_at": "2026-09-29T12:23:12.047Z"
+  },
+  {
+    "id": "4634ad40-a6df-4d2c-b5d2-6e2d17105117",
+    "opportunity_id": "7e7e8e34-a96c-4078-84c6-9edc8ee530d7",
+    "contact_id": "30a6bc8f-bad7-484c-bc79-674f87e7a3b4",
+    "company_id": "502600b3-b145-4055-9ec6-26fd45f0d724",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up B [1790684590977]",
+    "description": "Scheduled for 1/10/2026 (HIGH priority).",
+    "metadata": {
+      "follow_up_id": "4ae8955f-daec-4977-b894-f07511939256",
+      "due_at": "2026-10-01T12:23:10.978Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-29T12:23:11.603Z"
+  },
+  {
+    "id": "f5ce2cbf-316e-4897-94cb-20c21b2701cc",
+    "opportunity_id": "2bdd4920-0f07-44ae-be13-0c56c218a695",
+    "contact_id": null,
+    "company_id": "099182dc-937d-4e93-9086-26e18c8c6734",
+    "type": "status_changed",
+    "title": "Status Changed: NEW",
+    "description": "Opportunity pipeline state updated from qualified to new.",
+    "metadata": {
+      "from_status": "qualified",
+      "to_status": "new"
+    },
+    "created_at": "2026-09-29T12:23:10.961Z"
+  },
+  {
+    "id": "87f97855-0b39-4ad2-9f2d-3029e854ffd4",
+    "opportunity_id": "9ba07690-f232-4f8e-aaf6-c1d1fb9ca073",
+    "contact_id": null,
+    "company_id": "0aac7ed1-8708-435f-8bbc-913dbf22813c",
+    "type": "status_changed",
+    "title": "Status Changed: QUALIFIED",
+    "description": "Opportunity pipeline state updated from new to qualified.",
+    "metadata": {
+      "from_status": "new",
+      "to_status": "qualified"
+    },
+    "created_at": "2026-09-29T12:23:02.683Z"
+  },
+  {
+    "id": "bf5b14a6-e606-47d3-b601-f3cda24e6c4c",
+    "opportunity_id": "f31f4ac2-1f60-465c-89ff-875161965d78",
+    "contact_id": "41850e41-57f6-4e5b-99ed-7e4131f77692",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Call CEO re: Q3 expansion [1790684542601]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "70352c33-690c-4b6a-8cb2-78d3e89e62de",
+      "completed_at": "2026-09-29T12:22:26.286Z"
+    },
+    "created_at": "2026-09-29T12:22:26.293Z"
+  },
+  {
+    "id": "aa1934a7-0458-48e1-9915-1606215046c3",
+    "opportunity_id": "f31f4ac2-1f60-465c-89ff-875161965d78",
+    "contact_id": "41850e41-57f6-4e5b-99ed-7e4131f77692",
+    "company_id": "2ebe030a-8255-4215-8a23-8170c22925ef",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Call CEO re: Q3 expansion [1790684542601]",
+    "description": "Scheduled for 30/9/2026 (HIGH priority). Note: Discussed at initial discovery; interested in enterprise pricing.",
+    "metadata": {
+      "follow_up_id": "70352c33-690c-4b6a-8cb2-78d3e89e62de",
+      "due_at": "2026-09-30T04:30:00.000Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-29T12:22:23.367Z"
+  },
+  {
+    "id": "28594772-c3c7-498c-b664-a15b7478eb15",
+    "opportunity_id": "82fbf1e9-748d-475b-9dee-c25b07575c9a",
+    "contact_id": null,
+    "company_id": null,
+    "type": "follow_up_rescheduled",
+    "title": "Follow-up Rescheduled: Concurrent Follow-up B [1790683671474]",
+    "description": "Rescheduled to 2/10/2026.",
+    "metadata": {
+      "follow_up_id": "675573b9-5330-48b4-ac4c-8a19e958f5b8",
+      "due_at": "2026-10-02T04:30:00.000Z"
+    },
+    "created_at": "2026-09-29T12:22:22.623Z"
+  },
+  {
+    "id": "64208ca5-3fee-46b5-b960-6edf17f25c27",
+    "opportunity_id": "2bdd4920-0f07-44ae-be13-0c56c218a695",
+    "contact_id": "bb6c249b-caf4-4b0d-a8ec-7a322e1a79d2",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Concurrent Follow-up A [1790684392149]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "acb387ad-e1c5-4c76-b110-d45fe508b29f",
+      "completed_at": "2026-09-29T12:19:53.606Z"
+    },
+    "created_at": "2026-09-29T12:19:53.613Z"
+  },
+  {
+    "id": "af5bf21d-28c8-42ed-9f6f-2f24c1425eff",
+    "opportunity_id": "f31f4ac2-1f60-465c-89ff-875161965d78",
+    "contact_id": "41850e41-57f6-4e5b-99ed-7e4131f77692",
+    "company_id": "2ebe030a-8255-4215-8a23-8170c22925ef",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up B [1790684392149]",
+    "description": "Scheduled for 1/10/2026 (HIGH priority).",
+    "metadata": {
+      "follow_up_id": "53a067ac-1a6a-470d-89bc-90bb0e36cb6e",
+      "due_at": "2026-10-01T12:19:52.151Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-29T12:19:52.825Z"
+  },
+  {
+    "id": "9af789d1-75eb-4f16-85f6-057ef0de88fb",
+    "opportunity_id": "2bdd4920-0f07-44ae-be13-0c56c218a695",
+    "contact_id": "bb6c249b-caf4-4b0d-a8ec-7a322e1a79d2",
+    "company_id": "099182dc-937d-4e93-9086-26e18c8c6734",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up A [1790684392149]",
+    "description": "Scheduled for 30/9/2026 (MEDIUM priority).",
+    "metadata": {
+      "follow_up_id": "acb387ad-e1c5-4c76-b110-d45fe508b29f",
+      "due_at": "2026-09-30T12:19:52.150Z",
+      "priority": "medium"
+    },
+    "created_at": "2026-09-29T12:19:52.716Z"
+  },
+  {
+    "id": "f511dbbb-42d2-45d7-9966-12fa0bba1511",
+    "opportunity_id": "9ba07690-f232-4f8e-aaf6-c1d1fb9ca073",
+    "contact_id": null,
+    "company_id": "0aac7ed1-8708-435f-8bbc-913dbf22813c",
+    "type": "status_changed",
+    "title": "Status Changed: NEW",
+    "description": "Opportunity pipeline state updated from qualified to new.",
+    "metadata": {
+      "from_status": "qualified",
+      "to_status": "new"
+    },
+    "created_at": "2026-09-29T12:19:51.980Z"
+  },
+  {
+    "id": "f1e21904-8fc6-49cc-9dba-dcd0ebfc1370",
+    "opportunity_id": "a635158e-d6f3-4ca5-a5dc-66ac870fc5e1",
+    "contact_id": null,
+    "company_id": "c57581f9-a3e3-4483-ba89-883c2d4ece4a",
+    "type": "status_changed",
+    "title": "Status Changed: QUALIFIED",
+    "description": "Opportunity pipeline state updated from new to qualified.",
+    "metadata": {
+      "from_status": "new",
+      "to_status": "qualified"
+    },
+    "created_at": "2026-09-29T12:19:41.263Z"
+  },
+  {
+    "id": "381b9f3a-52e3-4541-9531-abc367b0eed8",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Call CEO re: Q3 expansion [1790684344489]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "e1c35286-faf9-43de-85bc-a19ec3cd0225",
+      "completed_at": "2026-09-29T12:19:08.469Z"
+    },
+    "created_at": "2026-09-29T12:19:08.475Z"
+  },
+  {
+    "id": "dde7d7a8-fae0-47c0-abc2-44e5f63f6851",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": "680dfd32-6f87-451a-ba30-34a8969acdaa",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Call CEO re: Q3 expansion [1790684344489]",
+    "description": "Scheduled for 30/9/2026 (HIGH priority). Note: Discussed at initial discovery; interested in enterprise pricing.",
+    "metadata": {
+      "follow_up_id": "e1c35286-faf9-43de-85bc-a19ec3cd0225",
+      "due_at": "2026-09-30T04:30:00.000Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-29T12:19:05.143Z"
+  },
+  {
+    "id": "0de39f02-442b-4a80-8aab-6ceb08d1f05d",
+    "opportunity_id": "9ba07690-f232-4f8e-aaf6-c1d1fb9ca073",
+    "contact_id": "b2c3ddde-71fa-4e02-8b79-60a5b8b14ee6",
+    "company_id": null,
+    "type": "follow_up_rescheduled",
+    "title": "Follow-up Rescheduled: Concurrent Follow-up A [1790683809733]",
+    "description": "Rescheduled to 2/10/2026.",
+    "metadata": {
+      "follow_up_id": "df836398-7349-4707-bca2-e5f39ce7909b",
+      "due_at": "2026-10-02T04:30:00.000Z"
+    },
+    "created_at": "2026-09-29T12:19:04.907Z"
+  },
+  {
+    "id": "1abd957f-7185-434e-8215-05c0a8780f8c",
+    "opportunity_id": "82fbf1e9-748d-475b-9dee-c25b07575c9a",
+    "contact_id": null,
+    "company_id": "4113cc3c-c1ce-43f0-ae6a-0dea876b421e",
+    "type": "status_changed",
+    "title": "Status Changed: QUALIFIED",
+    "description": "Opportunity pipeline state updated from new to qualified.",
+    "metadata": {
+      "from_status": "new",
+      "to_status": "qualified"
+    },
+    "created_at": "2026-09-29T12:11:12.782Z"
+  },
+  {
+    "id": "142e4979-01b2-4fbf-bca5-0e9928c77f16",
+    "opportunity_id": "2bdd4920-0f07-44ae-be13-0c56c218a695",
+    "contact_id": "bb6c249b-caf4-4b0d-a8ec-7a322e1a79d2",
+    "company_id": "099182dc-937d-4e93-9086-26e18c8c6734",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up B [1790683809733]",
+    "description": "Scheduled for 1/10/2026 (HIGH priority).",
+    "metadata": {
+      "follow_up_id": "18adc79a-7053-4c6b-b113-eb8868cd0a85",
+      "due_at": "2026-10-01T12:10:09.734Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-29T12:10:10.215Z"
+  },
+  {
+    "id": "49329c50-3302-4fa3-9a88-1d65ba3a2260",
+    "opportunity_id": "9ba07690-f232-4f8e-aaf6-c1d1fb9ca073",
+    "contact_id": "b2c3ddde-71fa-4e02-8b79-60a5b8b14ee6",
+    "company_id": "0aac7ed1-8708-435f-8bbc-913dbf22813c",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up A [1790683809733]",
+    "description": "Scheduled for 30/9/2026 (MEDIUM priority).",
+    "metadata": {
+      "follow_up_id": "df836398-7349-4707-bca2-e5f39ce7909b",
+      "due_at": "2026-09-30T12:10:09.733Z",
+      "priority": "medium"
+    },
+    "created_at": "2026-09-29T12:10:10.194Z"
+  },
+  {
+    "id": "3033900f-a70e-40d7-a0ae-11876585d148",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Concurrent Follow-up B [1790683639881]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "31ef0d27-b9de-460c-a2ff-38b23e002958",
+      "completed_at": "2026-09-29T12:10:10.165Z"
+    },
+    "created_at": "2026-09-29T12:10:10.173Z"
+  },
+  {
+    "id": "04e3a9c1-4675-4f7b-8de3-4b3a309125c4",
+    "opportunity_id": "82fbf1e9-748d-475b-9dee-c25b07575c9a",
+    "contact_id": null,
+    "company_id": "4113cc3c-c1ce-43f0-ae6a-0dea876b421e",
+    "type": "status_changed",
+    "title": "Status Changed: NEW",
+    "description": "Opportunity pipeline state updated from qualified to new.",
+    "metadata": {
+      "from_status": "qualified",
+      "to_status": "new"
+    },
+    "created_at": "2026-09-29T12:10:09.286Z"
+  },
+  {
+    "id": "0e67b31d-508d-42f3-bb4f-0266ed748a6a",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": null,
+    "company_id": "680dfd32-6f87-451a-ba30-34a8969acdaa",
+    "type": "status_changed",
+    "title": "Status Changed: QUALIFIED",
+    "description": "Opportunity pipeline state updated from new to qualified.",
+    "metadata": {
+      "from_status": "new",
+      "to_status": "qualified"
+    },
+    "created_at": "2026-09-29T12:09:59.497Z"
+  },
+  {
+    "id": "c98346e4-f9ac-48ac-9046-1155a2b22fc6",
+    "opportunity_id": "7e7e8e34-a96c-4078-84c6-9edc8ee530d7",
+    "contact_id": "30a6bc8f-bad7-484c-bc79-674f87e7a3b4",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Call CEO re: Q3 expansion [1790683775522]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "a332689a-0548-4129-b973-fea9ce2bad59",
+      "completed_at": "2026-09-29T12:09:37.955Z"
+    },
+    "created_at": "2026-09-29T12:09:37.960Z"
+  },
+  {
+    "id": "21e9b0f4-bf11-4812-be92-f826adeb2cb0",
+    "opportunity_id": "7e7e8e34-a96c-4078-84c6-9edc8ee530d7",
+    "contact_id": "30a6bc8f-bad7-484c-bc79-674f87e7a3b4",
+    "company_id": "502600b3-b145-4055-9ec6-26fd45f0d724",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Call CEO re: Q3 expansion [1790683775522]",
+    "description": "Scheduled for 30/9/2026 (HIGH priority). Note: Discussed at initial discovery; interested in enterprise pricing.",
+    "metadata": {
+      "follow_up_id": "a332689a-0548-4129-b973-fea9ce2bad59",
+      "due_at": "2026-09-30T04:30:00.000Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-29T12:09:36.052Z"
+  },
+  {
+    "id": "e2a0837b-7fa1-445f-982f-550ba04657a0",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": null,
+    "type": "follow_up_rescheduled",
+    "title": "Follow-up Rescheduled: Concurrent Follow-up A [1790683671474]",
+    "description": "Rescheduled to 2/10/2026.",
+    "metadata": {
+      "follow_up_id": "f1cf9a0a-3c9f-42c2-9671-2034becde943",
+      "due_at": "2026-10-02T04:30:00.000Z"
+    },
+    "created_at": "2026-09-29T12:09:35.634Z"
+  },
+  {
+    "id": "6ab7a7d5-c345-415d-a048-2c1892deab3f",
+    "opportunity_id": "7e7e8e34-a96c-4078-84c6-9edc8ee530d7",
+    "contact_id": "30a6bc8f-bad7-484c-bc79-674f87e7a3b4",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Concurrent Follow-up A [1790683639881]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "3978588e-24f1-4ae9-be3f-dcf6d5e9921c",
+      "completed_at": "2026-09-29T12:07:52.506Z"
+    },
+    "created_at": "2026-09-29T12:07:52.511Z"
+  },
+  {
+    "id": "1b065f7a-0631-4986-93e5-76ab8452dcd4",
+    "opportunity_id": "82fbf1e9-748d-475b-9dee-c25b07575c9a",
+    "contact_id": null,
+    "company_id": "4113cc3c-c1ce-43f0-ae6a-0dea876b421e",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up B [1790683671474]",
+    "description": "Scheduled for 1/10/2026 (HIGH priority).",
+    "metadata": {
+      "follow_up_id": "675573b9-5330-48b4-ac4c-8a19e958f5b8",
+      "due_at": "2026-10-01T12:07:51.476Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-29T12:07:51.972Z"
+  },
+  {
+    "id": "ca957279-af09-4bf7-9f0c-8c8cc3aa04b6",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": "680dfd32-6f87-451a-ba30-34a8969acdaa",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up A [1790683671474]",
+    "description": "Scheduled for 30/9/2026 (MEDIUM priority).",
+    "metadata": {
+      "follow_up_id": "f1cf9a0a-3c9f-42c2-9671-2034becde943",
+      "due_at": "2026-09-30T12:07:51.474Z",
+      "priority": "medium"
+    },
+    "created_at": "2026-09-29T12:07:51.939Z"
+  },
+  {
+    "id": "91aa8f42-16d8-4ad7-b304-e666a21eddf4",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": null,
+    "company_id": "680dfd32-6f87-451a-ba30-34a8969acdaa",
+    "type": "status_changed",
+    "title": "Status Changed: NEW",
+    "description": "Opportunity pipeline state updated from qualified to new.",
+    "metadata": {
+      "from_status": "qualified",
+      "to_status": "new"
+    },
+    "created_at": "2026-09-29T12:07:51.513Z"
+  },
+  {
+    "id": "37118a51-8bf2-42b0-852a-5e81d3f5d656",
+    "opportunity_id": "f31f4ac2-1f60-465c-89ff-875161965d78",
+    "contact_id": "41850e41-57f6-4e5b-99ed-7e4131f77692",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Concurrent Follow-up A [1790683478594]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "b3fd4c0a-abdb-46a3-a937-0dee45da5507",
+      "completed_at": "2026-09-29T12:07:21.071Z"
+    },
+    "created_at": "2026-09-29T12:07:21.080Z"
+  },
+  {
+    "id": "8367a906-71c2-4004-b2b5-8c062ca8c56d",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": "680dfd32-6f87-451a-ba30-34a8969acdaa",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up B [1790683639881]",
+    "description": "Scheduled for 1/10/2026 (HIGH priority).",
+    "metadata": {
+      "follow_up_id": "31ef0d27-b9de-460c-a2ff-38b23e002958",
+      "due_at": "2026-10-01T12:07:19.882Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-29T12:07:20.367Z"
+  },
+  {
+    "id": "4d8a90ff-5f78-46eb-992c-d426d0a33e2c",
+    "opportunity_id": "7e7e8e34-a96c-4078-84c6-9edc8ee530d7",
+    "contact_id": "30a6bc8f-bad7-484c-bc79-674f87e7a3b4",
+    "company_id": "502600b3-b145-4055-9ec6-26fd45f0d724",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up A [1790683639881]",
+    "description": "Scheduled for 30/9/2026 (MEDIUM priority).",
+    "metadata": {
+      "follow_up_id": "3978588e-24f1-4ae9-be3f-dcf6d5e9921c",
+      "due_at": "2026-09-30T12:07:19.881Z",
+      "priority": "medium"
+    },
+    "created_at": "2026-09-29T12:07:20.336Z"
+  },
+  {
+    "id": "d9859f73-1189-4502-8ab3-2e5e691a51b8",
+    "opportunity_id": "7e7e8e34-a96c-4078-84c6-9edc8ee530d7",
+    "contact_id": null,
+    "company_id": "502600b3-b145-4055-9ec6-26fd45f0d724",
+    "type": "status_changed",
+    "title": "Status Changed: QUALIFIED",
+    "description": "Opportunity pipeline state updated from new to qualified.",
+    "metadata": {
+      "from_status": "new",
+      "to_status": "qualified"
+    },
+    "created_at": "2026-09-29T12:07:20.062Z"
+  },
+  {
+    "id": "48dbb337-f8c0-41a7-b2e8-6d8fd4ade83f",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Call CEO re: Q3 expansion [1790531576399]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "eecaaa6b-6d88-423a-b3e6-f91b9e81fe0c",
+      "completed_at": "2026-09-29T12:04:40.282Z"
+    },
+    "created_at": "2026-09-29T12:04:40.287Z"
+  },
+  {
+    "id": "89be4197-fff7-448a-9f44-16ad6f1eedc1",
+    "opportunity_id": "f31f4ac2-1f60-465c-89ff-875161965d78",
+    "contact_id": null,
+    "company_id": "2ebe030a-8255-4215-8a23-8170c22925ef",
+    "type": "status_changed",
+    "title": "Status Changed: QUALIFIED",
+    "description": "Opportunity pipeline state updated from new to qualified.",
+    "metadata": {
+      "from_status": "new",
+      "to_status": "qualified"
+    },
+    "created_at": "2026-09-29T12:04:39.397Z"
+  },
+  {
+    "id": "27b8360b-cd24-460c-ac9d-cf082dd4b834",
+    "opportunity_id": "f31f4ac2-1f60-465c-89ff-875161965d78",
+    "contact_id": "41850e41-57f6-4e5b-99ed-7e4131f77692",
+    "company_id": "2ebe030a-8255-4215-8a23-8170c22925ef",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Concurrent Follow-up A [1790683478594]",
+    "description": "Scheduled for 30/9/2026 (MEDIUM priority).",
+    "metadata": {
+      "follow_up_id": "b3fd4c0a-abdb-46a3-a937-0dee45da5507",
+      "due_at": "2026-09-30T12:04:38.594Z",
+      "priority": "medium"
+    },
+    "created_at": "2026-09-29T12:04:39.030Z"
+  },
+  {
+    "id": "4044f206-9573-43da-9b3e-c1e2b462f2c6",
+    "opportunity_id": "9ba07690-f232-4f8e-aaf6-c1d1fb9ca073",
+    "contact_id": "b2c3ddde-71fa-4e02-8b79-60a5b8b14ee6",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Call CEO re: Q3 expansion [1790533627435]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "20bd9ada-d702-49a7-9623-eaeb0ca72311",
+      "completed_at": "2026-09-27T18:27:15.325Z"
+    },
+    "created_at": "2026-09-27T18:27:15.334Z"
+  },
+  {
+    "id": "a4f66b0d-102c-489b-8c4d-47c9376aba61",
+    "opportunity_id": "9ba07690-f232-4f8e-aaf6-c1d1fb9ca073",
+    "contact_id": "b2c3ddde-71fa-4e02-8b79-60a5b8b14ee6",
+    "company_id": "0aac7ed1-8708-435f-8bbc-913dbf22813c",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Call CEO re: Q3 expansion [1790533627435]",
+    "description": "Scheduled for 28/9/2026 (HIGH priority). Note: Discussed at initial discovery; interested in enterprise pricing.",
+    "metadata": {
+      "follow_up_id": "20bd9ada-d702-49a7-9623-eaeb0ca72311",
+      "due_at": "2026-09-28T04:30:00.000Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-27T18:27:08.196Z"
+  },
+  {
+    "id": "ce7a4234-6d68-435b-bacb-fbd78056ccd9",
+    "opportunity_id": "2bdd4920-0f07-44ae-be13-0c56c218a695",
+    "contact_id": null,
+    "company_id": "099182dc-937d-4e93-9086-26e18c8c6734",
+    "type": "status_changed",
+    "title": "Status Changed: QUALIFIED",
+    "description": "Opportunity pipeline state updated to qualified.",
+    "metadata": {
+      "new_status": "qualified"
+    },
+    "created_at": "2026-09-27T18:24:26.842Z"
+  },
+  {
+    "id": "4858f9b8-c720-44f0-a2c7-a45bddecc923",
+    "opportunity_id": "9ba07690-f232-4f8e-aaf6-c1d1fb9ca073",
+    "contact_id": null,
+    "company_id": "0aac7ed1-8708-435f-8bbc-913dbf22813c",
+    "type": "status_changed",
+    "title": "Status Changed: QUALIFIED",
+    "description": "Opportunity pipeline state updated to qualified.",
+    "metadata": {
+      "new_status": "qualified"
+    },
+    "created_at": "2026-09-27T18:23:06.608Z"
+  },
+  {
+    "id": "51ea7fb7-dd8f-4921-adf3-4fba349d1bb1",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Call CEO re: Q3 expansion [1790533345619]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "4bf6ded8-585e-4f58-b955-bb031b42eeef",
+      "completed_at": "2026-09-27T18:22:29.606Z"
+    },
+    "created_at": "2026-09-27T18:22:29.611Z"
+  },
+  {
+    "id": "a1c0a566-370b-47bd-8130-894cf51ba3f1",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": "680dfd32-6f87-451a-ba30-34a8969acdaa",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Call CEO re: Q3 expansion [1790533345619]",
+    "description": "Scheduled for 28/9/2026 (HIGH priority). Note: Discussed at initial discovery; interested in enterprise pricing.",
+    "metadata": {
+      "follow_up_id": "4bf6ded8-585e-4f58-b955-bb031b42eeef",
+      "due_at": "2026-09-28T04:30:00.000Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-27T18:22:26.305Z"
+  },
+  {
+    "id": "d0773ad7-9929-49a9-a19f-926b458aaf61",
+    "opportunity_id": "82fbf1e9-748d-475b-9dee-c25b07575c9a",
+    "contact_id": null,
+    "company_id": "4113cc3c-c1ce-43f0-ae6a-0dea876b421e",
+    "type": "status_changed",
+    "title": "Status Changed: QUALIFIED",
+    "description": "Opportunity pipeline state updated to qualified.",
+    "metadata": {
+      "new_status": "qualified"
+    },
+    "created_at": "2026-09-27T18:19:36.836Z"
+  },
+  {
+    "id": "66c81883-b99c-49ff-985e-33b82edd2b36",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": null,
+    "company_id": "680dfd32-6f87-451a-ba30-34a8969acdaa",
+    "type": "status_changed",
+    "title": "Status Changed: QUALIFIED",
+    "description": "Opportunity pipeline state updated to qualified.",
+    "metadata": {
+      "new_status": "qualified"
+    },
+    "created_at": "2026-09-27T18:17:31.749Z"
+  },
+  {
+    "id": "c1e5574b-742b-4f0b-acac-6d7b2c92bde4",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Call CEO re: Q3 expansion [1790531878977]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "4f122335-7b80-4db0-88c3-62943eda5ab5",
+      "completed_at": "2026-09-27T17:58:05.319Z"
+    },
+    "created_at": "2026-09-27T17:58:05.327Z"
+  },
+  {
+    "id": "c6995c9e-c6fd-41e6-a1a2-96f488411678",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": "680dfd32-6f87-451a-ba30-34a8969acdaa",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Call CEO re: Q3 expansion [1790531878977]",
+    "description": "Scheduled for 28/9/2026 (HIGH priority). Note: Discussed at initial discovery; interested in enterprise pricing.",
+    "metadata": {
+      "follow_up_id": "4f122335-7b80-4db0-88c3-62943eda5ab5",
+      "due_at": "2026-09-28T04:30:00.000Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-27T17:57:59.728Z"
+  },
+  {
+    "id": "3e59410e-a89a-4459-b8a1-714109d66b25",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": null,
+    "type": "follow_up_completed",
+    "title": "Follow-up Completed: Call CEO re: Q3 expansion [1790531714362]",
+    "description": "Marked complete by operator.",
+    "metadata": {
+      "follow_up_id": "18c231fa-aaa4-48aa-9b3a-106d03bcb886",
+      "completed_at": "2026-09-27T17:55:23.107Z"
+    },
+    "created_at": "2026-09-27T17:55:23.113Z"
+  },
+  {
+    "id": "93fc724b-bc81-4ff3-8093-3529b13abf4c",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": null,
+    "type": "follow_up_rescheduled",
+    "title": "Follow-up Rescheduled: Call CEO re: Q3 expansion [1790531576399]",
+    "description": "Rescheduled to 30/9/2026.",
+    "metadata": {
+      "follow_up_id": "eecaaa6b-6d88-423a-b3e6-f91b9e81fe0c",
+      "due_at": "2026-09-30T04:30:00.000Z"
+    },
+    "created_at": "2026-09-27T17:55:17.425Z"
+  },
+  {
+    "id": "80c1d1c8-97cc-4176-915d-93d7b2da2efb",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": "680dfd32-6f87-451a-ba30-34a8969acdaa",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Call CEO re: Q3 expansion [1790531714362]",
+    "description": "Scheduled for 28/9/2026 (HIGH priority). Note: Discussed at initial discovery; interested in enterprise pricing.",
+    "metadata": {
+      "follow_up_id": "18c231fa-aaa4-48aa-9b3a-106d03bcb886",
+      "due_at": "2026-09-28T04:30:00.000Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-27T17:55:15.111Z"
+  },
+  {
+    "id": "dea8d2e0-1067-4c4f-8169-78a76b97bef7",
+    "opportunity_id": "1813a4e2-7986-4816-a9d4-55af3957ae78",
+    "contact_id": "c89a0f18-9f83-481a-9107-e08ffd9eb259",
+    "company_id": "680dfd32-6f87-451a-ba30-34a8969acdaa",
+    "type": "follow_up_created",
+    "title": "Follow-up Scheduled: Call CEO re: Q3 expansion [1790531576399]",
+    "description": "Scheduled for 28/9/2026 (HIGH priority). Note: Discussed at initial discovery; interested in enterprise pricing.",
+    "metadata": {
+      "follow_up_id": "eecaaa6b-6d88-423a-b3e6-f91b9e81fe0c",
+      "due_at": "2026-09-28T04:30:00.000Z",
+      "priority": "high"
+    },
+    "created_at": "2026-09-27T17:52:57.369Z"
+  }
+]
